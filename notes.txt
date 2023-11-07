@@ -1,0 +1,5 @@
+## chat Application using pyqt5
+https://www.youtube.com/watch?v=zHUUTGQWjrM
+
+## attach file using python tkinter
+https://pythonguides.com/upload-a-file-in-python-tkinter/
