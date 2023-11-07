@@ -20,10 +20,12 @@ def receive_messages(client_socket):
         filepush('client.txt','user: '+data);
 
 def client_program():
-    host = socket.gethostname()
+    # host = socket.gethostname()
+    host="192.168.183.196"
     port = 5001
 
     client_socket = socket.socket()
+
     client_socket.connect((host, port))
 
     # Create two threads for sending and receiving messages

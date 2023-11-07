@@ -3,3 +3,30 @@ https://www.youtube.com/watch?v=zHUUTGQWjrM
 
 ## attach file using python tkinter
 https://pythonguides.com/upload-a-file-in-python-tkinter/
+
+
+
+#Windows Firewall incomming
+
+netsh advfirewall firewall add rule name="Allow Port 12345" dir=in action=allow protocol=TCP localport=12345
+netsh advfirewall firewall add rule name="Allow MyApp" dir=in action=allow program="C:\Path\To\MyApp.exe"
+netsh advfirewall reset
+
+#Windows Firewall outgoing
+
+netsh advfirewall firewall add rule name="Custom Outgoing Rule" dir=out action=allow program="C:\Path\To\YourProgram.exe" enable=yes
+netsh advfirewall firewall show rule name="Custom Outgoing Rule"
+
+#linux outgoing commands
+
+sudo ufw status
+sudo ufw default allow outgoing
+sudo ufw reload
+
+#linux incomming connections
+
+sudo ufw status
+sudo ufw enable
+sudo ufw allow 5001/tcp
+sudo ufw reload
+
