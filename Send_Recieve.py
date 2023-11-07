@@ -8,7 +8,7 @@ from functions import *
 stop_loops=1
 
 
-def send_messages(client_socket,server,mac_id):
+def send_messages(client_socket,mac_id):
     while True:
         message = input('You -> ')
         type="Text"
@@ -16,16 +16,15 @@ def send_messages(client_socket,server,mac_id):
         serial_data=serialize(data)
         if(message=="EXIT 0000"):
             stop_loops=0
-            server.close()
             return
         client_socket.send(serial_data)
         filepush('Chat.txt','You-> '+message);
 
-def sender_program(host,port,server,mac_id):
+def sender_program(host,port,mac_id):
     sender_socket = socket.socket()
     sender_socket.connect((host, port))
     
-    send_thread = threading.Thread(target=send_messages, args=(sender_socket,server,mac_id))
+    send_thread = threading.Thread(target=send_messages, args=(sender_socket,mac_id))
     send_thread.start()
 
 def receive_messages(client_socket,address):
@@ -40,13 +39,14 @@ def receive_messages(client_socket,address):
         type=data[1]
         mac_=data[2]
         
-        filepush('Chat.txt',mac_+' :'+text);   
+        filepush('Chat.txt',mac_+' :'+text);
+    client_socket.close()
 
-def reciver_program(server_socket):
+def reciver_program():
     host = "0.0.0.0"
     port = 5001
 
-    # server_socket = socket.socket()
+    server_socket = socket.socket()
     server_socket.bind((host, port))
     server_socket.listen(5)
 
@@ -60,10 +60,10 @@ if __name__=='__main__':
     port=5001
     host="192.168.183.196"# where we want to send
     mac_id=get_mac_address()
-    server_socket = socket.socket()
+    
     
 
-    sender=threading.Thread(target=sender_program,args=(host,port,server_socket,mac_id))
+    sender=threading.Thread(target=sender_program,args=(host,port,mac_id))
     reciver=threading.Thread(target=reciver_program,args=())
     sender.start()
     reciver.start()
