@@ -15,8 +15,12 @@ def send_messages(client_socket,mac_id):
             type='photo'
             filename=message[2:]
             send_data=send_image(filename)
-            data=[[filename,send_data],type,mac_id]
+            data=[filename,type,mac_id]
             filepush('Chat.txt','You-> '+filename+" Sent!");
+            serial_data=serialize(data)
+        
+            client_socket.send(serial_data)
+            client_socket.send(send_data.encode())
         else:
             type="Text"
             send_data=message
@@ -59,8 +63,8 @@ def receive_messages(client_socket,address):
         mac_=data[2]
 
         if(type=="photo"):
-            filename=rec_data[0]
-            file_data=rec_data[1]
+            filename=data[0]
+            file_data=client_socket.recv(1024)
             receive_image(filename,file_data)
             filepush('Chat.txt',mac_+' :'+filename+" Recieved");
         

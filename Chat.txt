@@ -8,3 +8,18 @@ You-> hello i am using serialization this time
 You-> can you see my mac address
 cc:15:31:b3:29:22 :yes i can see it right there
 cc:15:31:b3:29:22 :its faboulous
+You-> EXIT 0000
+cc:15:31:b3:29:22 :hello
+You-> hello
+You-> screenshot.png Sent!
+You-> screenshot.png Sent!
+You-> screenshot.png Sent!
+You-> screenshot.png Sent!
+You-> screenshot.png Sent!
+You-> cl.txt Sent!
+You-> EXIT 0000
+You-> hello
+You-> whatsup
+You-> i a sending a new file lets check this up
+You-> ppdf.pdf
+You-> ppdf.pdf Sent!
