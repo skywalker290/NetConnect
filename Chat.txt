@@ -3,3 +3,8 @@ You-> hello
 ('192.168.183.196', 51096) :i am prakhar's laptop
 ('192.168.183.196', 51096) :reveal you identity or prepare to die
 You-> i am root user KEVIN FLYNN
+cc:15:31:b3:29:22 :hello
+You-> hello i am using serialization this time
+You-> can you see my mac address
+cc:15:31:b3:29:22 :yes i can see it right there
+cc:15:31:b3:29:22 :its faboulous

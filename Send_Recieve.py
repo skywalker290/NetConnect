@@ -11,14 +11,28 @@ stop_loops=1
 def send_messages(client_socket,mac_id):
     while True:
         message = input('You -> ')
-        type="Text"
-        data=[message,type,mac_id]
-        serial_data=serialize(data)
+        if(message[0:2]=="p "):
+            type='photo'
+            filename=message[2:]
+            send_data=send_image(filename)
+            data=[[filename,send_data],type,mac_id]
+            filepush('Chat.txt','You-> '+filename+" Sent!");
+        else:
+            type="Text"
+            send_data=message
+            filepush('Chat.txt','You-> '+message);
+            data=[send_data,type,mac_id]
+            
+
         if(message=="EXIT 0000"):
             stop_loops=0
             return
+        
+        
+        serial_data=serialize(data)
+        
         client_socket.send(serial_data)
-        filepush('Chat.txt','You-> '+message);
+        
 
 def sender_program(host,port,mac_id):
     sender_socket = socket.socket()
@@ -27,19 +41,33 @@ def sender_program(host,port,mac_id):
     send_thread = threading.Thread(target=send_messages, args=(sender_socket,mac_id))
     send_thread.start()
 
+
+
+
+
+
 def receive_messages(client_socket,address):
     while stop_loops:
-        deserial_data = client_socket.recv(1024).decode()
+        deserial_data = client_socket.recv(1024)
         if not deserial_data:
             break
         name=str(address[0])
         data=deserialize(deserial_data)
         
-        text=data[0]
+        rec_data=data[0]
         type=data[1]
         mac_=data[2]
+
+        if(type=="photo"):
+            filename=rec_data[0]
+            file_data=rec_data[1]
+            receive_image(filename,file_data)
+            filepush('Chat.txt',mac_+' :'+filename+" Recieved");
         
-        filepush('Chat.txt',mac_+' :'+text);
+        else:
+            text=rec_data
+            filepush('Chat.txt',mac_+' :'+text);
+        
     client_socket.close()
 
 def reciver_program():
