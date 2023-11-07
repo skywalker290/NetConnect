@@ -4,8 +4,6 @@ https://www.youtube.com/watch?v=zHUUTGQWjrM
 ## attach file using python tkinter
 https://pythonguides.com/upload-a-file-in-python-tkinter/
 
-
-
 #Windows Firewall incomming
 
 netsh advfirewall firewall add rule name="Allow Port 12345" dir=in action=allow protocol=TCP localport=12345

@@ -5,33 +5,48 @@ from two_way_server import filepush
 from two_way_server import receive_image
 from functions import *
 
+stop_loops=1
 
-def send_messages(client_socket):
+
+def send_messages(client_socket,server,mac_id):
     while True:
         message = input('You -> ')
-        client_socket.send(message.encode())
+        type="Text"
+        data=[message,type,mac_id]
+        serial_data=serialize(data)
+        if(message=="EXIT 0000"):
+            stop_loops=0
+            server.close()
+            return
+        client_socket.send(serial_data)
         filepush('Chat.txt','You-> '+message);
 
-def sender_program(host,port=5001):
+def sender_program(host,port,server,mac_id):
     sender_socket = socket.socket()
     sender_socket.connect((host, port))
     
-    send_thread = threading.Thread(target=send_messages, args=(sender_socket,))
+    send_thread = threading.Thread(target=send_messages, args=(sender_socket,server,mac_id))
     send_thread.start()
 
 def receive_messages(client_socket,address):
-    while True:
-        data = client_socket.recv(1024).decode()
-        if not data:
+    while stop_loops:
+        deserial_data = client_socket.recv(1024).decode()
+        if not deserial_data:
             break
-        name=str(address)
-        filepush('Chat.txt',name+' :'+data);   
+        name=str(address[0])
+        data=deserialize(deserial_data)
+        
+        text=data[0]
+        type=data[1]
+        mac_=data[2]
+        
+        filepush('Chat.txt',mac_+' :'+text);   
 
-def reciver_program():
+def reciver_program(server_socket):
     host = "0.0.0.0"
     port = 5001
 
-    server_socket = socket.socket()
+    # server_socket = socket.socket()
     server_socket.bind((host, port))
     server_socket.listen(5)
 
@@ -44,6 +59,11 @@ def reciver_program():
 if __name__=='__main__':
     port=5001
     host="192.168.183.196"# where we want to send
+    mac_id=get_mac_address()
+    server_socket = socket.socket()
+    
 
-    sender=threading.Thread(target=reciver_program,args=(host,port))
+    sender=threading.Thread(target=sender_program,args=(host,port,server_socket,mac_id))
     reciver=threading.Thread(target=reciver_program,args=())
+    sender.start()
+    reciver.start()
