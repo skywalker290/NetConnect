@@ -1,25 +1,6 @@
+You-> sender2.jpg Sent!
+You-> hello world
+You-> test.pdf Sent!
 You-> hello
-('192.168.183.196', 51096) :hello
-('192.168.183.196', 51096) :i am prakhar's laptop
-('192.168.183.196', 51096) :reveal you identity or prepare to die
-You-> i am root user KEVIN FLYNN
-cc:15:31:b3:29:22 :hello
-You-> hello i am using serialization this time
-You-> can you see my mac address
-cc:15:31:b3:29:22 :yes i can see it right there
-cc:15:31:b3:29:22 :its faboulous
-You-> EXIT 0000
-cc:15:31:b3:29:22 :hello
-You-> hello
-You-> screenshot.png Sent!
-You-> screenshot.png Sent!
-You-> screenshot.png Sent!
-You-> screenshot.png Sent!
-You-> screenshot.png Sent!
-You-> cl.txt Sent!
-You-> EXIT 0000
-You-> hello
-You-> whatsup
-You-> i a sending a new file lets check this up
-You-> ppdf.pdf
-You-> ppdf.pdf Sent!
+You-> 
+You-> video.mp4 Sent!

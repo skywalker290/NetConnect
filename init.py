@@ -1,1 +1,0 @@
-import pyqt5a;0

@@ -4,28 +4,31 @@ import pickle
 from two_way_server import filepush
 from two_way_server import receive_image
 from functions import *
+import time
 
 stop_loops=1
+reciver_port=5001 # server port
 
 
 def send_messages(client_socket,mac_id):
     while True:
         message = input('You -> ')
         if(message[0:2]=="p "):
-            type='photo'
+            type="photo"
             filename=message[2:]
-            send_data=send_image(filename)
             data=[filename,type,mac_id]
             filepush('Chat.txt','You-> '+filename+" Sent!");
             serial_data=serialize(data)
-        
             client_socket.send(serial_data)
-            client_socket.send(send_data.encode())
+            send_image(client_socket,filename)
+            continue
         else:
             type="Text"
             send_data=message
             filepush('Chat.txt','You-> '+message);
             data=[send_data,type,mac_id]
+            serial_data=serialize(data)
+            client_socket.send(serial_data)
             
 
         if(message=="EXIT 0000"):
@@ -33,18 +36,16 @@ def send_messages(client_socket,mac_id):
             return
         
         
-        serial_data=serialize(data)
         
-        client_socket.send(serial_data)
         
 
 def sender_program(host,port,mac_id):
+    input("Server Running->")
     sender_socket = socket.socket()
     sender_socket.connect((host, port))
     
     send_thread = threading.Thread(target=send_messages, args=(sender_socket,mac_id))
     send_thread.start()
-
 
 
 
@@ -56,16 +57,18 @@ def receive_messages(client_socket,address):
         if not deserial_data:
             break
         name=str(address[0])
-        data=deserialize(deserial_data)
+        data=(deserialize(deserial_data))
+
+        data=list(data)
         
         rec_data=data[0]
         type=data[1]
         mac_=data[2]
 
         if(type=="photo"):
+
             filename=data[0]
-            file_data=client_socket.recv(1024)
-            receive_image(filename,file_data)
+            receive_image(client_socket,filename)
             filepush('Chat.txt',mac_+' :'+filename+" Recieved");
         
         else:
@@ -74,9 +77,9 @@ def receive_messages(client_socket,address):
         
     client_socket.close()
 
-def reciver_program():
+def reciver_program():# port in use 5001
     host = "0.0.0.0"
-    port = 5001
+    port = reciver_port
 
     server_socket = socket.socket()
     server_socket.bind((host, port))
@@ -89,8 +92,10 @@ def reciver_program():
     receive_thread.start()
 
 if __name__=='__main__':
-    port=5001
-    host="192.168.183.196"# where we want to send
+    # port=5001
+    # host="192.168.183.196"# where we want to send
+    host = "localhost"
+    port =5002
     mac_id=get_mac_address()
     
     
