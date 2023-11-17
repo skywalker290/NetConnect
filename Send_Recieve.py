@@ -92,10 +92,10 @@ def reciver_program():# port in use 5001
     receive_thread.start()
 
 if __name__=='__main__':
-    # port=5001
-    # host="192.168.183.196"# where we want to send
-    host = "localhost"
-    port =5002
+    port=5001
+    host="192.168.0.114"# where we want to send
+    # host = "localhost"
+    # port =5001
     mac_id=get_mac_address()
     
     

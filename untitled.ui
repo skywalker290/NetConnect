@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QQuickWidget" name="quickWidget">
+  <widget class="QQuickWidget" name="previous_chat_display">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -42,7 +42,7 @@
     <enum>QQuickWidget::SizeRootObjectToView</enum>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
+  <widget class="QPlainTextEdit" name="Chat_input_box">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -52,7 +52,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="file_attach_button">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -63,6 +63,19 @@
    </property>
    <property name="text">
     <string>Attach</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="chat_send_button">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>370</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
    </property>
   </widget>
  </widget>
