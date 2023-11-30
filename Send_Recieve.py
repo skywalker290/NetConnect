@@ -7,7 +7,7 @@ from functions import *
 import time
 
 
-public_key, private_key =generate_key_pair()
+public_key, private_key =0
 client_public_key=0
 
 
@@ -50,7 +50,7 @@ def sender_program(host,port,mac_id):
     input("Server Running->")
     sender_socket = socket.socket()
     sender_socket.connect((host, port))
-    sender_socket.send(public_key)
+    sender_socket.send(serialize_key(public_key))
 
     
     send_thread = threading.Thread(target=send_messages, args=(sender_socket,mac_id))
@@ -99,18 +99,18 @@ def reciver_program():# port in use 5001
     print('Connection from: ' + str(address))
     client_public_key=server_socket.recv(1024)
 
-    client_public_key=client_public_key
-
+    client_public_key=deserialize_key(client_public_key)
 
     receive_thread = threading.Thread(target=receive_messages, args=(conn,address))
     receive_thread.start()
 
 if __name__=='__main__':
     port=5002
-    host="192.168.38.130"# where we want to send
-    # host = "localhost"
+    # host="192.168.38.130"# where we want to send
+    host = "localhost"
     # port =5001
     mac_id=get_mac_address()
+    public_key, private_key =generate_key_pair()
     
     
 

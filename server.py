@@ -1,27 +1,51 @@
 import socket
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
 
-# Create a socket
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def generate_key_pair():
+    private_key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048,
+        backend=default_backend()
+    )
+    public_key = private_key.public_key()
+    return private_key, public_key
 
-# Bind the socket to your device's IPv4 address and a specific port
-server_socket.bind(("192.168.16.92", 12345))  # Replace with your IPv4 address
+def serialize_key(key):
+    return key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+    )
 
-# Listen for incoming connections
-server_socket.listen(5)
+def decrypt_message(cipher_text, private_key):
+    decrypted_message = private_key.decrypt(
+        cipher_text,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return decrypted_message.decode()
 
-print("Server is listening for connections...")
+def start_server():
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind(('localhost', 8080))
+    server.listen(1)
 
-while True:
-    # Accept a client connection
-    client_socket, client_address = server_socket.accept()
-    print(f"Connected to {client_address}")
+    print("Server listening on port 8080...")
 
-    # Handle client messages
+    private_key, public_key = generate_key_pair()
+
     while True:
-        data = client_socket.recv(1024)
-        if not data:
-            break
-        print(f"Received: {data.decode('utf-8')}")
+        conn, addr = server.accept()
+        with conn:
+            print('Connected by', addr)
+            conn.sendall(serialize_key(public_key))
+            data = conn.recv(1024)
+            decrypted_data = decrypt_message(data, private_key)
+            print('Received:', decrypted_data)
 
-    # Close the client connection
-    client_socket.close()
+if __name__ == "__main__":
+    start_server()

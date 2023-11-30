@@ -74,12 +74,14 @@ def generate_key_pair():
     return private_key, public_key
 
 
+
 def serialize_key(key):
     return key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo
     )
-def deserilize_key(server_public_key_data):
+
+def deserialize_key(server_public_key_data):
     server_public_key = serialization.load_pem_public_key(server_public_key_data, backend=default_backend())
     return server_public_key
 
