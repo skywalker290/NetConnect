@@ -1,25 +1,31 @@
-import socket
+import os
+import platform
+from colorama import init
 
-def send_pdf(client_socket, filename):
-    with open(filename, 'rb') as file:
-        while True:
-            data = file.read(1024)
-            if not data:
-                break
-            client_socket.send(data)
+def clear_terminal():
+    init(autoreset=True)
+    system_platform = platform.system().lower()
+    if system_platform == "windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
-def client_program():
-    host = "localhost"  # Replace with the server's IP address
-    port = 12345  # Use the same port as the server
 
-    client_socket = socket.socket()
-    client_socket.connect((host, port))
 
-    filename = "test.pdf"  # Replace with the path to the PDF file you want to send
-    send_pdf(client_socket, filename)
-    print("PDF sent successfully")
+def print_file_content(file_path):
+    clear_terminal()
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+            print(content)
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+    except Exception as e:
+        print(f"Error: {e}")
 
-    client_socket.close()
+print_file_content("Chat.txt")
+input("helo_>")
 
-if __name__ == '__main__':
-    client_program()
+
+print_file_content("Chat.txt")
+input("helo_>")
