@@ -1,1 +1,73 @@
-person 2
+person 2You-> hello i am ayush
+You-> hello
+You-> 
+You-> 
+You-> 
+You-> 
+You-> hello
+You-> hello
+You-> hello
+You-> hello
+You-> clear
+You-> hello
+You-> hello
+You-> hello
+You-> hello
+You-> 
+You-> hello
+You-> hello
+You-> hlelo
+You-> 
+You-> hlelo
+You-> hlelo
+You-> heko
+You-> hello
+You-> 
+You-> 
+You-> 
+You-> hello
+You-> 
+3d:c3:17:46:4f:ed :hello
+3d:c3:17:46:4f:ed :sender1.png Recieved
+You-> hello this message is now encrypted
+You-> yes i know this is encrpted now
+You-> sender2.jpg
+You-> sender2.jpg Sent!
+3d:c3:17:46:4f:ed :hello
+You-> hello
+3d:c3:17:46:4f:ed :ppdf.pdf Recieved
+3d:c3:17:46:4f:ed :hello
+You-> hlelo
+You-> sender1.jpg Sent!
+You-> sender1.jpg Sent!
+3d:c3:17:46:4f:ed :i am 172.168.0.1
+You-> helllo brother 
+You-> sender1.jpg Sent!
+You-> screenshot.png Sent!
+You-> test.pdf Sent!
+You-> hello
+You-> example.txt Sent!
+3d:c3:17:46:4f:ed :hello
+3d:c3:17:46:4f:ed :hello
+You-> hello
+You-> hello
+You-> test 4
+You-> hello
+You-> notes.txt Sent!
+3d:c3:17:46:4f:ed :hello
+You-> hello
+You-> my name is ayush
+3d:c3:17:46:4f:ed :what is your name
+You-> hello
+3d:c3:17:46:4f:ed :hello
+3d:c3:17:46:4f:ed :my name is mr. robot
+You-> hello
+3d:c3:17:46:4f:ed :hello shreya
+3d:c3:17:46:4f:ed :hello  i am agarawal
+You-> hellooooo
+You-> test.pdf Sent!
+You-> test.pdf Sent!
+3d:c3:17:46:4f:ed :helloooo
+You-> EXIT 000
+You-> EXIT 0000
+3d:c3:17:46:4f:ed :server.txt Recieved
