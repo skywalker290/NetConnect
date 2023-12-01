@@ -6,16 +6,24 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 import os, platform
 import socket
+from tqdm import tqdm
+
 
 
 
 def send_image(client_socket, filename):
-    with open(filename,'rb') as file:
-        while True:
-            data = file.read(1024)
-            if not data:
-                break
-            client_socket.send(data)
+    file_size = os.path.getsize(filename)
+    with open(filename, 'rb') as file:
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc="Sending", ncols=80) as pbar:
+            while True:
+                data = file.read(1024)
+                if not data:
+                    break
+                client_socket.send(data)
+                pbar.update(len(data))
+    # Close the file after sending
+    file.close()
+
 
 
 def receive_image(server_socket, filename):
@@ -25,6 +33,7 @@ def receive_image(server_socket, filename):
             if not data:
                 break
             file.write(data)
+        file.close()
 
 # def send_image(client_socket, filename, public_key):
 #     with open(filename, 'rb') as file:
@@ -39,41 +48,6 @@ def receive_image(server_socket, filename):
 #     )
 #             client_socket.send(encrypted_data)
 
-def Send_image(sender_socket, filename,  public_key):
-    # Read the file and encrypt and send each chunk
-    with open(filename, 'rb') as file:
-        while True:
-            data = file.read(128)  # Use 117 bytes for RSA 1024-bit key
-            if not data:
-                break
-            encrypted_data = public_key.encrypt(
-                data,
-                padding.OAEP(
-                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
-            )
-            sender_socket.send(encrypted_data)
-
-    sender_socket.send(b'')
-            
-
-def Receive_image(server_socket, output_filename,private_key ):
-    with open(output_filename, 'wb') as file:
-        while True:
-            encrypted_data = server_socket.recv(128 )  # Use 128 bytes for RSA 1024-bit key
-            if not encrypted_data:
-                break
-            decrypted_data = private_key.decrypt(
-                encrypted_data,
-                padding.OAEP(
-                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
-            )
-            file.write(decrypted_data)
 
 
 def serialize(data):
@@ -234,4 +208,33 @@ def get_local_ip():
     except Exception as e:
         print(f"Error getting local IP: {e}")
         return None
+
+def send_file(client_socket, file_path):
+    file_size = os.path.getsize(file_path)
+    client_socket.send(f"{file_size}".encode("utf-8"))  # Send the file size
+
+    with open(file_path, 'rb') as file:
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc="Sending", ncols=80) as pbar:
+            while True:
+                data = file.read(1024)
+                if not data:
+                    break
+                client_socket.send(data)
+                pbar.update(len(data))
+    
+    print("File sent successfully!")
+
+def receive_file(server_socket, save_path):
+    file_size = int(server_socket.recv(1024).decode("utf-8"))  # Receive the file size
+    received_size = 0
+
+    with open(save_path, 'wb') as file:
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc="Receiving", ncols=80) as pbar:
+            while received_size < file_size:
+                data = server_socket.recv(1024)
+                file.write(data)
+                received_size += len(data)
+                pbar.update(len(data))
+    
+    print("File received successfully!")
 

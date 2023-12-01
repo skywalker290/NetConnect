@@ -71,3 +71,31 @@ You-> test.pdf Sent!
 You-> EXIT 000
 You-> EXIT 0000
 3d:c3:17:46:4f:ed :server.txt Recieved
+You-> hello
+3d:c3:17:46:4f:ed :hello
+You-> mr robot
+You-> test.pdf Sent!
+3d:c3:17:46:4f:ed :EXIT 0000
+You-> EXIT 0000
+You-> notes.txt Sent!
+You-> EXIT 0000
+3d:c3:17:46:4f:ed :EXIT 0000
+You-> hello
+You-> test.pdf Sent!
+3d:c3:17:46:4f:ed :hello
+You-> notes.txt Sent!
+3d:c3:17:46:4f:ed :'
+You-> sender2.jpg Sent!
+You-> sender2.jpg Sent!
+You-> sender2.jpg Sent!
+You-> sender2.jpg Sent!
+3d:c3:17:46:4f:ed :hello bro
+You-> sender2.jpg Sent!
+3d:c3:17:46:4f:ed :EXIT 0000
+You-> EXIT 0000
+You-> test.pdf Sent!
+You-> hello
+cc:15:31:b3:29:1e :hello
+You-> check
+You-> sender2.jpg Sent!
+cc:15:31:b3:29:1e :hello

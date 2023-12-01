@@ -25,6 +25,6 @@ sudo ufw reload
 
 sudo ufw status
 sudo ufw enable
-sudo ufw allow 5001/tcp
+sudo ufw allow 5000/tcp
 sudo ufw reload
 
