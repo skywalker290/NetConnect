@@ -10,7 +10,7 @@ import time
 
 
 stop_loops=1
-reciver_port=5000 # server port
+reciver_port=5002 # server port
 
 
 def send_messages(client_socket,mac_id):
@@ -22,7 +22,7 @@ def send_messages(client_socket,mac_id):
             data=[filename,d_type,mac_id]
             serial_data=encrypt_serialized_data(data,client_public_key)
             client_socket.send(serial_data)
-            send_file(client_socket,filename)
+            send_image(client_socket,filename)
             filepush('Chat.txt','You-> '+filename+" Sent!");
             continue
         elif(message==""):
@@ -78,7 +78,7 @@ def receive_messages(client_socket,address):
         if(d_type=="photo"):
 
             filename=data[0]
-            receive_file(client_socket,filename)
+            receive_image(client_socket,filename)
             filepush('Chat.txt',mac_+' :'+filename+" Recieved");
         
         else:
@@ -111,11 +111,13 @@ def reciver_program():# port in use 5001
 
 
 if __name__=='__main__':
-    port=5000
-    host = "192.168.184.176"
     mac_id=get_mac_address()
     my_ip_address=get_local_ip()
     print("IP ADDRESS:",my_ip_address)
+    port=5001
+    # host = "192.168.184.176"
+    host=input("Enter Host IP:")
+    
     
     private_key, public_key  =generate_key_pair()
     client_public_key=0

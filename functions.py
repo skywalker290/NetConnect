@@ -35,19 +35,6 @@ def receive_image(server_socket, filename):
             file.write(data)
         file.close()
 
-# def send_image(client_socket, filename, public_key):
-#     with open(filename, 'rb') as file:
-#         while True:
-#             data = file.read(1024)  
-#             if not data:
-#                 break
-#             encrypted_data = public_key.encrypt(data,padding.OAEP(
-#             mgf=padding.MGF1(algorithm=hashes.SHA256()),
-#             algorithm=hashes.SHA256(),
-#             label=None)
-#     )
-#             client_socket.send(encrypted_data)
-
 
 
 def serialize(data):
@@ -225,7 +212,7 @@ def send_file(client_socket, file_path):
     print("File sent successfully!")
 
 def receive_file(server_socket, save_path):
-    file_size = int(server_socket.recv(1024).decode("utf-8"))  # Receive the file size
+    file_size = int(server_socket.recv(1024).decode("utf-8"))  
     received_size = 0
 
     with open(save_path, 'wb') as file:
