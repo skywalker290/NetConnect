@@ -118,3 +118,18 @@ You-> test.jpg Sent!
 You-> hello
 You-> i am ayush
 3d:c3:17:46:4f:ed :hello my name is maths
+You-> hello
+You-> hello 
+You-> hello mate
+You-> my name is ayush
+f4:4e:e3:90:d9:e4 :yeahhh helllo i am honey speaking
+You-> hello honey
+f4:4e:e3:90:d9:e4 :cool day this is working
+You-> sender2.jpg
+You-> sender2.jpg Sent!
+You-> hello
+f4:4e:e3:90:d9:e4 :hello
+f4:4e:e3:90:d9:e4 :i am hp
+You-> i am linux
+f4:4e:e3:90:d9:e4 :EXIT 0000
+You-> EXIT 0000

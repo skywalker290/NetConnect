@@ -10,7 +10,7 @@ import time
 
 
 stop_loops=1
-reciver_port=5002 # server port
+reciver_port=5000 # server port
 
 
 def send_messages(client_socket,mac_id):
@@ -114,7 +114,7 @@ if __name__=='__main__':
     mac_id=get_mac_address()
     my_ip_address=get_local_ip()
     print("IP ADDRESS:",my_ip_address)
-    port=5001
+    port=5000
     # host = "192.168.184.176"
     host=input("Enter Host IP:")
     
